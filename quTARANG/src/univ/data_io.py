@@ -30,6 +30,7 @@ import h5py as hp
 import os
 from pathlib import Path
 from quTARANG.util import fns_util as util
+import time as tr
 
 if para.dimension == 2 and para.init_usrdef == False:
     from quTARANG.initial_cond import dimension2 as dim
@@ -51,7 +52,15 @@ def print_params(G, time=0, iter=0, error = 0, energy = 0):
     print('Energy: ', G.compute_te())
     G.compute_rrms()
     print('rms: ', G.rrms_temp)
-    print('Particle Number: ', G.norm())            
+    print('Particle Number: ', G.norm())   
+    if para.device == 'gpu':
+        para.tf_c.record()
+        para.tf_c.synchronize()
+        elapsed_time = ncp.cuda.get_elapsed_time(para.t0_c, para.tf_c) * 1e-3 
+    elif para.device == "cpu":
+        para.tf_c = tr.perf_counter()
+        elapsed_time = para.tf_c - para.t0_c
+    print("Elapsed time(s): ", elapsed_time)         
     print("-----------------------------------------\n")
     
 def show_params():
@@ -75,8 +84,7 @@ def show_params():
         print('Total iterations:', grid.nstep)
     if para.resume == True:
         print('RUN Resumed!')
-    print('')
-    
+
 # directory generation
 def gen_path():
     if not Path(para.op_path).exists():
@@ -119,7 +127,6 @@ def set_initcond(G):
                 dim.random_vortices(G)
             save_wfc(G,0)
         
-    print('***** Wavefunction and potential initializes *****')
     
 def set_resume_initcond(G): 
     f1 = hp.File(Path(para.op_path)/'wfc'/grid.rs_wfc, 'r')

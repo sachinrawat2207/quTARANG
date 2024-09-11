@@ -27,7 +27,7 @@ from quTARANG.src.univ import fourier_transform as fft
 from quTARANG.src.univ import grid
 from quTARANG.src.univ import data_io as IO
 from quTARANG.config.config import ncp
-
+import time as tr
 
 #############################################################################################
 #                   Numerical Schemes(without dissipation and rotation)             
@@ -95,7 +95,6 @@ def set_scheme():
     else:
         print("Please choose the correct scheme")
         quit()
-    print("***** Scheme has set *****")
 
 
 def time_advance(G):
@@ -106,7 +105,22 @@ def time_advance(G):
         
     elif para.imgtime == False:
         real_time(G, t)
+    if para.device == 'gpu':
+        para.tf_c.record()
+        para.tf_c.synchronize()
+        initilaization_time = ncp.cuda.get_elapsed_time(para.t0_c, para.ti_c) * 1e-3
+        execution_time = ncp.cuda.get_elapsed_time(para.ti_c, para.tf_c) * 1e-3
+    elif para.device == "cpu":
+        para.tf_c = tr.perf_counter()
+        initilaization_time = para.ti_c - para.t0_c
+        execution_time = para.tf_c - para.ti_c
         
+    print("-----------------------------------------")    
+    print("Time taken for initialization(s): ", initilaization_time)
+    print("Time take for execution(s): ", execution_time)
+    elapsed_time = initilaization_time + execution_time
+    print("Total run time(s): ", elapsed_time)
+    print("-----------------------------------------\n")    
     print("***** Run Completed ***** ")
     
 def img_time(G,t):

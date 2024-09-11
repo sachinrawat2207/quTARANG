@@ -33,7 +33,7 @@ from pathlib import Path
 import shutil
 import os 
 import sys
-
+import time as tr
 
 class GPE():
     """Main class for the simulation. 
@@ -70,9 +70,17 @@ class GPE():
         self.U = U.Vector_field()
         data_io.show_params()
         
+        if para.device == "gpu":
+            para.t0_c = ncp.cuda.Event()
+            para.ti_c = ncp.cuda.Event()
+            para.tf_c = ncp.cuda.Event()
+            para.t0_c.record()
+   
+        elif para.device == "cpu":
+            para.t0_c = tr.perf_counter()
+        
         self.set_arrays()
         self.set_initfile()
-        
         # For timedependent potential and omega
         if para.resume == True: 
             data_io.set_resume_initcond(self)
@@ -85,6 +93,16 @@ class GPE():
         self.wfck[:] = fft.forward_transform(self.wfc)
         evolution.set_scheme()
         
+        if para.device == 'gpu':
+            para.ti_c.record()
+            para.ti_c.synchronize()
+            elapsed_time = ncp.cuda.get_elapsed_time(para.t0_c, para.ti_c) * 1e-3
+        elif para.device == "cpu":
+            para.ti_c = tr.perf_counter()
+            elapsed_time = para.ti_c - para.t0_c
+        print("Elapsed time(s): ", elapsed_time)
+        print("***** Initialization completed *****")
+        print("")
         
     def set_arrays(self):
         """Setup numpy/cupy arrays for wfc, wfck and pot for the simulation.
