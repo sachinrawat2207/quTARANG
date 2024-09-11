@@ -21,7 +21,7 @@ else:
 class specanalysis():
     def __init__(self):
         self.set_grid()
-        self.op = op_file
+        self.op = op_dir
         self.wfcpath = Path(path)/'wfc'
         f = hp.File(Path(path)/'pot.h5', 'r')
         if device == 'gpu':

@@ -1,10 +1,11 @@
 from postprocessing.config import *
 import matplotlib.pyplot as plt
 
-plt.rcParams.update({'font.size':'15',
+linewidth = 1.2
+plt.rcParams.update({'font.size':'14',
                      'font.family':'serif',
                      'font.weight':'bold',
-                     'lines.linewidth':1.5,
+                     'lines.linewidth':linewidth,
                      'text.usetex':True})
 
 
@@ -27,22 +28,21 @@ if para.dimension == 3:
     t_rms = f['t'][:]
 f.close()
 
-# print(rms)
-# plt.plot(t_rms, rms, label='rms')
-plt.plot(t_rms, xrms,'k', label = r'$x_{rms}$', linewidth = 2)
+fig, ax = plt.subplots(1,1, figsize=(5, 4))
+ax.set_ylabel("$\sigma$")
+ax.set_xlabel("$t$")
+ax.set_xlim(t_rms[0], t_rms[-1])
+
+ax.plot(t_rms, xrms,'k--', label=r'$\sigma_x$', linewidth = linewidth)
 
 if para.dimension == 2:
-    # plt.plot(t_rms, rrms, 'r--', label = r'$r_{rms}$', linewidth = 2)
-    plt.plot(t_rms, yrms, 'b--', label = r'$y_{rms}$', linewidth = 2)
-    
+    ax.plot(t_rms, yrms,'r-.', label=r'$\sigma_y$', linewidth = linewidth)
 
 elif para.dimension == 3:
-    plt.plot(t_rms, yrms, label = r'$y_{rms}$')
-    plt.plot(t_rms, zrms, label = r'$z_{rms}$')
+    ax.plot(t_rms, yrms,'r-.', label=r'$\sigma_y$', linewidth = linewidth)
+    ax.plot(t_rms, zrms, color='b', linestyle = '-.', label=r'$\sigma_z$', linewidth = linewidth)
 
-plt.xlabel('$t$', fontsize=28)    
-plt.xlim(t_rms[0], t_rms[-1])
 plt.legend(fancybox=False,  loc='best', frameon=False)
 plt.tight_layout()
-plt.savefig(dir/"rms.jpeg", dpi=300, bbox_inches='tight')
+plt.savefig(op_dir/"rms.jpeg", dpi=300, bbox_inches='tight')
 plt.show()

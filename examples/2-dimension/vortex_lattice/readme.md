@@ -1,0 +1,2 @@
+The vortex lattice equal number of alternate vortices and antivortices in the system are imprinted using phase imprinting and in the abscense of any potential. 
+The default total number of vortex and anti-vortex pairs  vortices in the system are 100(with equal and alternate vortex and antivortex pairs). The can be changed by changing the value of `Nvorts` in the `vortex_lattice()` funcion of the file `quTARANG/initial_cond/dimension2.py`

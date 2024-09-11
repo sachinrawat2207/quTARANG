@@ -1,0 +1,1 @@
+Paste the content of `para.py` and `main.py` file of this directory to the `para.py` file and `main.py` of the directory where the main code is present.  The device inside the para.py file is selected as <"gpu"> by default. If you want to run the code on CPU, change the device to <"cpu"> in the para.py file.

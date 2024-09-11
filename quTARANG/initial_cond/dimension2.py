@@ -110,7 +110,9 @@ def gen_phase_unifom(Nvorts, locs_pvorts, locs_nvorts, L):
 
 
 def random_vortices(G): 
+    ##################################################################
     Nvorts = 20  # No of vortices
+    ##################################################################
     min_vortex_sep = para.Lx/25
     vorts = generate_random_vortices(Nvorts, min_vortex_sep, para.Lx-min_vortex_sep)
     pvorts = vorts[:Nvorts//2]
@@ -128,8 +130,9 @@ def random_vortices(G):
 
 ############################################# Generate Vortex latice ##################################################
 def vortex_lattice(G):
+    ##################################################################
     Nvorts = 100 # No of vortices
-    
+    ##################################################################
     Nv = int(Nvorts**0.5)
     a1, a2 = -para.Lx//2, para.Ly//2
     xpos = ncp.linspace(a1, a2, Nv, endpoint=False)

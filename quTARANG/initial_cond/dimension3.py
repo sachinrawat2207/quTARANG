@@ -28,16 +28,7 @@ from quTARANG.src.univ import grid
 
 ncp.random.seed(1)
 
-def test():
-    gammax = 1
-    gammay = 2.0
-    gammaz = 4.0
-    eps1 = 1/4
-    wfc = ((gammay * gammaz)**0.25/(ncp.pi * eps1)**(3/4)) * ncp.exp(-( gammaz * grid.z_mesh**2 + gammay * grid.y_mesh**2 + grid.x_mesh**2)/(2*eps1))+0j
-    pot = (gammax**2 * grid.x_mesh**2 + gammay**2 * grid.y_mesh**2 + gammaz**2*grid.z_mesh**2)/2 
-    return wfc, pot
-
-def rp():  
+def rp(G):  
     # Generate the smoothed random phase 
     theta_0 = 1
     dk = 2*ncp.pi/para.Lx
@@ -68,7 +59,7 @@ def rp():
     arg_norm = 4*ncp.pi
     phase = 2*arg_norm*(phase - ncp.min(phase))/ncp.ptp(phase)-arg_norm
     
-    wfc = ncp.exp(1j * phase)
-    pot = 0
+    G.wfc = ncp.exp(1j * phase)
+    G.pot = 0
     
-    return wfc, pot
+    return
