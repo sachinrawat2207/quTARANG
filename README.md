@@ -2,9 +2,9 @@
 
 
 **quTARANG** is a Python package designed for studying turbulence in quantum systems, specifically in atomic Bose-Einstein condensates (BECs), using the mean-field Gross-Pitaevskii equation (GPE) given by
-$$
-i\hbar\partial_t\psi(\vec{r},t) = -\frac{\hbar^2}{2m}\nabla^2\psi(\vec{r},t) + V(\vec{r},t)\psi(\vec{r},t) + U_0|\psi(\vec{r},t)|^2\psi(\vec{r},t),
-$$
+
+$i\hbar\partial_t\psi(\vec{r},t) = -\frac{\hbar^2}{2m}\nabla^2\psi(\vec{r},t) + V(\vec{r},t)\psi(\vec{r},t) + U_0|\psi(\vec{r},t)|^2\psi(\vec{r},t),$
+
 where $\psi(\vec{r},t)$ is the macroscopic complex wave function, $m$ is the atomic mass, $V(\vec{r},t)$ is the trapping potential, $N$ is the number of particles, $\displaystyle U_0=(4\pi\hslash^2a_s)/m$ is the nonlinear interaction parameter and $a_s$ denotes the scattering length for the interaction of the atomic particles.
 
 The package is hardware-agnostic, allowing users to run simulations on either a CPU or a GPU by setting the `device` parameter in the `para.py` file, as detailed below. **quTARANG** employs the Time-Splitting Pseudo-Spectral (TSSP) method for evolving the system, ensuring both efficiency and accuracy. Additionally, the package can compute stationary states by evolving the GPE in imaginary time, enabled by setting `imgtime` parameter as `True` in the para.py file. In addition, **quTARANG** also includes functions to compute various statistical quantities like spectra and fluxes. It can compute the energy spectra by using a conventional binning method as well as more resolved spectra using the the angle-averaged Wiener-Khinchin approach [see](https://journals.aps.org/pra/pdf/10.1103/PhysRevA.106.043322). 
