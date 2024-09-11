@@ -11,36 +11,36 @@ device = "cpu"             # Choose the device <"cpu"> to run on cpu and gpu to 
 device_rank = 0            # Set GPU no in case if you are running on a single GPU else leave it as it is
 
 # Set grid size 
-Nx = 256
-Ny = 256
+Nx = 512
+Ny = 512
 Nz = 1
     
 # Set box length
-Lx = 32
-Ly = 32
+Lx = 22
+Ly = 22
 Lz = 1
 
 # Set maximum time and dt
-tmax = 1    
+tmax = 8    
 dt = 0.001
 
 # Choose the value of the non linerarity
-g = 3.1371
+g = 0.1
 
-init_usrdef = True
-init_cond = "rp"
+init_usrdef = False
+init_cond = 'rp'
 
 # If init_usrdef is True then either pass input through main or set the input path along with input file
-in_path = "/path/to/input"
+in_path = "/mnt/Disk_14TB/Sachin/cpc_code/quTARANG_v_1.1/initvortl"
 
 
 # Set output folder path
-op_path = "../output_gstate2D"
+op_path = "/mnt/c/Users/sachi/OneDrive - IIT Kanpur/Desktop/CPC/outputdata"
 
 # Choose the scheme need to implement in the code
 scheme = "TSSP"          # Choose the shemes <"TSSP">, <"RK4"> etc
 
-imgtime = True          # set <False> for real time evolution and <True> for imaginary time evolution
+imgtime = False          # set <False> for real time evolution and <True> for imaginary time evolution
 delta = 1e-12
 
 
@@ -68,8 +68,8 @@ en_iter_step = 100
 # Printing iteration step
 t_print_step = 1000
 
-
 #================================================================================
+
 if Nx != 1 and Ny == 1 and Nz == 1:
     dimension = 1
 
@@ -78,8 +78,7 @@ elif Nx != 1 and Ny != 1 and Nz == 1:
 
 elif Nx != 1 and Ny != 1 and Nz != 1:
     dimension = 3  
-#================================================================================
-
+    
 # Used for computation of time
 t0_c = 0
 ti_c = 0
