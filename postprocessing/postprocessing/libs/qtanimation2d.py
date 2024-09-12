@@ -9,8 +9,8 @@ import re
 import imageio
 from tqdm import tqdm 
 
-sys.path.insert(0, str(Path.cwd().parents[0]))
-from postprocessing.path import *
+# sys.path.insert(0, str(Path.cwd().parents[0]))
+from postprocessing.config import *
 
 linewidth = 2.5
 plt.rcParams.update({'font.size':'20',
@@ -126,27 +126,27 @@ class quplot2d():
         plt.clf()
         plt.close()
     
-    def plotpd(self, skip = 1):
+    def plotpd(self, skip = 0):
         path = [self.path/'postprocessing/phasedensityplots']
         for dir in path:
             if not Path(dir).exists():
                 os.makedirs(dir)
         l = len(self.files)
-        for i in tqdm(range(0, l, skip)):
+        for i in tqdm(range(0, l, skip+1)):
             wfc_name = self.files[i]
             self.plotpd_(wfc_name, path[0])
     
-    def plotd(self, skip = 1):
+    def plotd(self, skip = 0):
         path = [self.path/'postprocessing/densityplots']
         for dir in path:
             if not Path(dir).exists():
                 os.makedirs(dir)
         l = len(self.files)
-        for i in tqdm(range(0, l, skip)):
+        for i in tqdm(range(0, l, skip+1)):
             wfc_name = self.files[i]
             self.plotd_(wfc_name, path[0])
 
-    def animation(self, fps=30, skip = 1, format = 'mp4', quality = 5, ptype = 'd'):
+    def animation(self, fps=30, skip = 0, format = 'mp4', quality = 5, ptype = 'd'):
         dir = self.path/'postprocessing/animation'
         if not Path(dir).exists():
             os.makedirs(dir)
@@ -162,7 +162,7 @@ class quplot2d():
         l = len(plotsname)
         images = []
         
-        for i in tqdm(range(0, l, skip)):
+        for i in tqdm(range(0, l, skip+1)):
             wfc_name = plotsname[i]
             images.append(imageio.v2.imread(path/wfc_name)) 
         if ptype == 'pd':
