@@ -211,7 +211,7 @@ def compute_energy(G, t):
     elif para.device == 'cpu':
         G.te.append(G.compute_chmpot())
         G.chmpot.append(G.compute_te())
-        # ckec, ckei = G.ke_dec()
+        ckec, ckei = G.ke_dec()
         G.ke.append(ckec + ckei)
         G.kei.append(ckei)
         G.kec.append(ckec)
