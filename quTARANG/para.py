@@ -50,7 +50,7 @@ wfc_start_step = 0
 wfc_iter_step = 5000
 
 # Rms save setting
-save_rms = True
+save_rms = False
 rms_start_step = 0
 rms_iter_step = 10
 
