@@ -1,0 +1,66 @@
+#================================================================================
+#                       Change the following parameters
+#================================================================================
+real_dtype = "float64"
+complex_dtype = "complex128"
+
+pi = 3.141592653589793
+
+# Device Setting 
+device = "gpu"             # Choose the device <"cpu"> to run on cpu and gpu to run on <"gpu">
+device_rank = 1            # Set GPU no in case if you are running on a single GPU else leave it as it is
+
+# Set grid size 
+Nx = 128
+Ny = 128
+Nz = 128
+    
+# Set box length
+Lx = 2*pi
+Ly = 2*pi
+Lz = 2*pi
+
+
+# Set maximum time and dt
+tmax = 12   
+dt = 0.001
+
+# Choose the value f the non linerarity
+g = 40
+alpha = 2/g
+
+inp_type = "pdf"       # Choose the initial condition type <"fun">, <"dat">, <"pdf">
+
+typ = "tg"            # In case of inp_type = "pdf" set the type of initial condition <"rp">, <"rv">, <"vl"> for 2D and <"rp">, <"tg"> for 3D.
+
+# If inp_type = "dat" then set the input path
+in_path = "/path/to/input_directory"
+
+
+# Set output folder path
+op_path = "../output_tg"
+
+scheme = "TSSP"         
+
+imgtime = False          # set <False> for real time evolution and <True> for imaginary time evolution
+delta = 1e-12
+
+overwrite = True
+
+# Wavefunction save setting
+save_wfc = True
+wfc_start_step = 0
+wfc_iter_step = 1000
+
+# Rms save setting
+save_rms = False
+rms_start_step = 0
+rms_iter_step = 10
+
+# Energy save setting
+save_en = True
+en_start_step = 0
+en_iter_step = 10
+
+# Printing iteration step
+t_print_step = 1000
